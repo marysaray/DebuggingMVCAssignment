@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AspnetCoreWithBugs.Models;
+using AspnetCoreWithBugs.Data;
 
 namespace AspnetCoreWithBugs.Controllers
 {
@@ -20,7 +21,7 @@ namespace AspnetCoreWithBugs.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Product.ToListAsync());
+            return View(await _context.Products.ToListAsync());
         }
 
         public IActionResult Create()
@@ -41,7 +42,7 @@ namespace AspnetCoreWithBugs.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            var product = await _context.Product.FindAsync(id);
+            var product = await _context.Products.FindAsync(id);
             if (product == null)
             {
                 return NotFound();
@@ -64,7 +65,7 @@ namespace AspnetCoreWithBugs.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            var product = await _context.Product
+            var product = await _context.Products
                 .FirstOrDefaultAsync(m => m.ProductId == id);
 
             if (product == null)
@@ -78,14 +79,14 @@ namespace AspnetCoreWithBugs.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var product = await _context.Product.FindAsync(id);
-            _context.Product.Remove(product);
+            var product = await _context.Products.FindAsync(id);
+            _context.Products.Remove(product);
             return RedirectToAction(nameof(Index));
         }
 
         private bool ProductExists(int id)
         {
-            return _context.Product.Any(e => e.ProductId == id);
+            return _context.Products.Any(e => e.ProductId == id);
         }
     }
 }

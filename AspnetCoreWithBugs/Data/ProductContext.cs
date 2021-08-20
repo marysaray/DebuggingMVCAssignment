@@ -5,14 +5,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using AspnetCoreWithBugs.Models;
 
-namespace AspnetCoreWithBugs.Models
+namespace AspnetCoreWithBugs.Data
 {
     public class ProductContext : DbContext
     {
+        // constructor
         public ProductContext(DbContextOptions<ProductContext> options) : base(options)
         {
-
+            // default this is empty
         }
-        public DbSet<AspnetCoreWithBugs.Models.Product> Product { get; set; }
+        public DbSet<Product> Products { get; set; }
     }
 }
