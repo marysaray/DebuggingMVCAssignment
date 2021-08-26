@@ -24,6 +24,7 @@ namespace AspnetCoreWithBugs.Controllers
             return View(await _context.Products.ToListAsync());
         }
 
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
@@ -40,6 +41,7 @@ namespace AspnetCoreWithBugs.Controllers
             return View(product);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
             var product = await _context.Products.FindAsync(id);
@@ -63,6 +65,7 @@ namespace AspnetCoreWithBugs.Controllers
             return View(product);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
             var product = await _context.Products
