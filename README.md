@@ -1,3 +1,5 @@
+[![.NET Core CI](https://github.com/marysaray/DebuggingMVCAssignment/actions/workflows/dotnet.yml/badge.svg)](https://github.com/marysaray/DebuggingMVCAssignment/actions/workflows/dotnet.yml)
+
 # AspnetCoreWithBugs
 CPW213 ASP.NET MVC Core website with some bugs and needs refactoring
 
