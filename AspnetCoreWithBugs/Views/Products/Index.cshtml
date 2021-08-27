@@ -6,6 +6,17 @@
 
 <h1>Product Catalog</h1>
 
+@if (TempData["Message"] != null) 
+{
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        @TempData["Message"]
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+
 <p>
     <a asp-action="Create">Create New</a>
 </p>
