@@ -12,15 +12,27 @@ namespace AspnetCoreWithBugs.Controllers
 {
     public class ProductsController : Controller
     {
-        private readonly ProductContext _context;
+        // field for accessibility: class scope for multiple methods
+        private readonly ProductContext _context; // private not available to another class
 
-        public ProductsController(ProductContext context)
+   
+        /// <summary>
+        /// constructor injection: inject services DbContext (dependency injection)
+        /// easier maintainability for applications
+        /// </summary>
+        /// <param name="context"></param>
+        public ProductsController(ProductContext context) // framework calls the constructor: startup.cs file
         {
-            _context = context;
+            _context = context; // associated with startup.cs file: ConfigureServices
         }
 
-        public async Task<IActionResult> Index()
+        /// <summary>
+        /// Displays list of all products
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IActionResult> Index() // right click to go to view
         {
+            // gets all product from database and sends to the view page
             return View(await _context.Products.ToListAsync());
         }
 
@@ -33,7 +45,7 @@ namespace AspnetCoreWithBugs.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Product product)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid) // checks to see if it is a valid product
             {
                 await _context.AddAsync(product); // create new product
 
