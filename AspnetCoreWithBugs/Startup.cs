@@ -28,10 +28,10 @@ namespace AspnetCoreWithBugs
         {
             services.AddControllersWithViews();
 
-            //string connection = Configuration.GetConnectionString("CoreWithBugsDB-ProductDb");
+            // string connection = Configuration.GetConnectionString("CoreWithBugsDB-ProductDb");
 
-            services.AddDbContext<ProductContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("CoreWithBugsDB-ProductDb")));
+            services.AddDbContext<ProductContext>(options => // microsoft docs and in class syntax
+                options.UseSqlServer(Configuration.GetConnectionString("CoreWithBugsDB-ProductDb"))); // appsettings.json
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
