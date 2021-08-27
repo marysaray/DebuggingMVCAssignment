@@ -19,7 +19,11 @@ namespace AspnetCoreWithBugs.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        /// <summary>
+        /// Displays list of all products
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IActionResult> Index() // right click to go to view
         {
             return View(await _context.Products.ToListAsync());
         }
