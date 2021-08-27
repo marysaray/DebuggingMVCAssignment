@@ -47,10 +47,13 @@ namespace AspnetCoreWithBugs.Controllers
         {
             if (ModelState.IsValid) // checks to see if it is a valid product
             {
-                await _context.AddAsync(product);   // adding new product
-                return RedirectToAction(nameof(Index)); // stays on the same page?
+                await _context.AddAsync(product); // create new product
+
+                await _context.SaveChangesAsync(); // add to database
+
+                return RedirectToAction(nameof(Index)); // goes back to catalog page
             }
-            return View(product); // display new product
+            return View(product); // stays on the same page
         }
 
         [HttpGet]
