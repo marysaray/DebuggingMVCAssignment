@@ -33,12 +33,12 @@ namespace AspnetCoreWithBugs.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Product product)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid) // checks to see if it is a valid product
             {
-                await _context.AddAsync(product);
-                return RedirectToAction(nameof(Index));
+                await _context.AddAsync(product);   // adding new product
+                return RedirectToAction(nameof(Index)); // stays on the same page?
             }
-            return View(product);
+            return View(product); // display new product
         }
 
         [HttpGet]
