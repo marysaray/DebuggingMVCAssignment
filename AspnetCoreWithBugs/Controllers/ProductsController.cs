@@ -51,6 +51,8 @@ namespace AspnetCoreWithBugs.Controllers
 
                 await _context.SaveChangesAsync(); // add to database
 
+                TempData["Message"] = $"{product.Name} was added successfully!";
+
                 return RedirectToAction(nameof(Index)); // goes back to catalog page
             }
             return View(product); // stays on the same page
