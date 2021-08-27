@@ -39,7 +39,7 @@ namespace AspnetCoreWithBugs.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            return View(); // create new view page for adding product
         }
 
         [HttpPost]
@@ -59,27 +59,29 @@ namespace AspnetCoreWithBugs.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int id) // unique identifier to edit 
         {
-            var product = await _context.Products.FindAsync(id);
-            if (product == null)
+            var product = await _context.Products.FindAsync(id); // check database by id
+            if (product == null) // not available
             {
-                return NotFound();
+                return NotFound(); // return message
             }
-            return View(product);
+            return View(product); // model passed in: dispay current product
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Product product)
+        public async Task<IActionResult> Edit(Product product) // for all properties except id
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid) // ensure validation product exists in the database
             {
-                _context.Update(product);
-                await _context.SaveChangesAsync();
- 
-                return RedirectToAction(nameof(Index));
+                _context.Update(product); // update product in database
+                await _context.SaveChangesAsync(); // save the changes 
+
+                TempData["Message"] = $"{product.Name} was edited successfully!";
+
+                return RedirectToAction(nameof(Index)); // return to the catalog page
             }
-            return View(product);
+            return View(product); // model passed in: display current product
         }
 
         [HttpGet]
