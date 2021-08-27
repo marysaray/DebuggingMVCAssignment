@@ -1,10 +1,10 @@
-﻿@model IEnumerable<AspnetCoreWithBugs.Models.Product>
+﻿@model IEnumerable<AspnetCoreWithBugs.Models.Product> 
 
 @{
-    ViewData["Title"] = "Index"; // web page for list of products
+    ViewData["Title"] = "Product Catalog"; // _layout.cshtml: webpage tab title
 }
 
-<h1>Index</h1>
+<h1>Product Catalog</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -25,10 +25,10 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model) { // database each element is a product: modelbinding access to products
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.Name) 
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
