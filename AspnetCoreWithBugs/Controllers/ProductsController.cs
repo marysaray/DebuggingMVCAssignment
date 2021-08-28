@@ -34,8 +34,16 @@ namespace AspnetCoreWithBugs.Controllers
         {
             int pageNum = id ?? 1; // null-coalescing operator
             const int PageSize = 3;
+            ViewData["CurrentPage"] = pageNum;
 
-            // gets all product from database and sends to the view page
+            int numProducts = await (from p in _context.Products // get the amount of products
+                               select p).CountAsync();
+
+            int totalPages = (int)Math.Ceiling((double)numProducts / PageSize);
+
+            ViewData["MaxPage"] = totalPages;
+
+            // get 3 products from database and sends to the view page
             return View(await _context.Products.Skip(PageSize * (pageNum - 1))
                         .Take(PageSize).ToListAsync());
         }

@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<AspnetCoreWithBugs.Models.Product> 
 
 @{
-    ViewData["Title"] = "Product Catalog"; // _layout.cshtml: webpage tab title
+    ViewData["Title"] = "Products"; // _layout.cshtml: webpage tab title
 }
 
-<h1>Product Catalog</h1>
+<h1>Products</h1>
 
 @if (TempData["Message"] != null) 
 {
@@ -59,4 +59,25 @@
         </tbody>
     </table>
 </div>
-
+@* Pring page numbers *@
+<ul class="pagination">
+    @for (int i = 1; i <= (int)ViewData["MaxPage"]; i++)
+    {
+        if (i == (int)ViewData["CurrentPage"])
+        {
+            <li class="page-item active">
+                <a class="page-link" asp-action="Index" asp-route-id="@i">
+                    @i
+                </a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item">
+                <a class="page-link" asp-action="Index" asp-route-id="@i">
+                    @i
+                </a>
+            </li>
+        }
+    }
+</ul>
