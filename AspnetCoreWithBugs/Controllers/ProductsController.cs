@@ -27,13 +27,17 @@ namespace AspnetCoreWithBugs.Controllers
         }
 
         /// <summary>
-        /// Displays list of all products
+        /// Displays a view that lists a page ofs products
         /// </summary>
         /// <returns></returns>
-        public async Task<IActionResult> Index() // right click to go to view
+        public async Task<IActionResult> Index(int? id) // nullable id https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/null-coalescing-operator
         {
+            int pageNum = id ?? 1; // null-coalescing operator
+            const int PageSize = 3;
+
             // gets all product from database and sends to the view page
-            return View(await _context.Products.ToListAsync());
+            return View(await _context.Products.Skip(PageSize * (pageNum - 1))
+                        .Take(PageSize).ToListAsync());
         }
 
         [HttpGet]
