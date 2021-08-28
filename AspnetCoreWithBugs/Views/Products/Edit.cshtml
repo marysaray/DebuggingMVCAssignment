@@ -1,10 +1,10 @@
 ﻿@model AspnetCoreWithBugs.Models.Product
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit " + Model.Name;
 }
 
-<h1>Edit</h1>
+<h1>Edit @Model.Name</h1>
 
 <h4>Product</h4>
 <hr />
