@@ -85,25 +85,28 @@ namespace AspnetCoreWithBugs.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id) // unique identifier to edit 
         {
             var product = await _context.Products
-                .FirstOrDefaultAsync(m => m.ProductId == id);
+                .FirstOrDefaultAsync(m => m.ProductId == id); // check database by id
 
-            if (product == null)
+            if (product == null) // not available
             {
-                return NotFound();
+                return NotFound(); // return message
             }
 
-            return View(product);
+            return View(product); // model passed in: dispay current product
         }
 
         [HttpPost, ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id) // unique identifier
         {
-            var product = await _context.Products.FindAsync(id);
-            _context.Products.Remove(product);
-            return RedirectToAction(nameof(Index));
+            var product = await _context.Products.FindAsync(id); // get product from database
+            _context.Products.Remove(product); // delete product
+           await _context.SaveChangesAsync(); // save changes: query to database
+
+            TempData["Message"] = $"{product.Name} has been deleted.";
+            return RedirectToAction(nameof(Index)); // return back to view
         }
 
         private bool ProductExists(int id)
