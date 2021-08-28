@@ -36,16 +36,13 @@ namespace AspnetCoreWithBugs.Controllers
             const int PageSize = 3;
             ViewData["CurrentPage"] = pageNum;
 
-            int numProducts = await (from p in _context.Products // get the amount of products
-                               select p).CountAsync();
-
+            int numProducts = await ProductDb.GetTotalProductsAsync(_context);
             int totalPages = (int)Math.Ceiling((double)numProducts / PageSize);
 
             ViewData["MaxPage"] = totalPages;
 
             // get 3 products from database and sends to the view page
-            return View(await _context.Products.Skip(PageSize * (pageNum - 1))
-                        .Take(PageSize).ToListAsync());
+            return View(await ProductDb.GetProductsAsync(_context, PageSize, pageNum));
         }
 
         [HttpGet]
@@ -59,9 +56,7 @@ namespace AspnetCoreWithBugs.Controllers
         {
             if (ModelState.IsValid) // checks to see if it is a valid product
             {
-                await _context.AddAsync(product); // create new product
-
-                await _context.SaveChangesAsync(); // add to database
+                await ProductDb.CreateProductAsync(_context, product);
 
                 TempData["Message"] = $"{product.Name} was added successfully!";
 
